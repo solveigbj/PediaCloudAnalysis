@@ -2,26 +2,32 @@ package pediacloud.model;
 
 import java.awt.Color;
 
-/**
- * @author sinso
- *
- */
+public class WordLine {
 
-public class WordClickModel extends Model {
+	String word;
+	int wordSize;
+	String color;
 
-	private int wordSize;
-	private String wordColor;
-	private int wordRank;
-	private int numberOfWords;
-
-	public WordClickModel(String per, String time) {
-		super(per, time);
+	
+	public WordLine (String[] content) {
+		word = content[0];
+		wordSize = new Integer(content[1]);
+		//int colCode = new Integer(content[2]);
+		//color = getColorName(new Color(colCode));
+		color = content[2];
 	}
 	
-	public void addWordSize (int size) {
-		wordSize = size;
-	}
+	public String getWord() { return word; }
+	public int wordSize () { return new Integer(wordSize);}
 
+	public int getWordSize() {
+		return wordSize;
+	}
+	
+
+	public String getColor() {
+		return color;
+	}
 	/**
 	 * @param c
 	 * @return
@@ -40,22 +46,6 @@ public class WordClickModel extends Model {
 			else if (c.equals(Color.black)) name = colors[7];
 		}
 		return name;
-	}
-	
-	public void addWordColor(int color) {
-		Color Color = new Color(color);
-		wordColor = getColorName(Color);
-	}
-	public void addWordRank(int rank) {
-		wordRank = rank;
-	}
-	public void addNumberOfWords(int words) {
-		numberOfWords = words;
-	}
-	public String toString() {
-
-		return super.toString() + wordSize + ", " + wordColor + ", " + wordRank
-				+ ", " + numberOfWords;
 	}
 
 }

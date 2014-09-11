@@ -4,19 +4,20 @@ package pediacloud.model;
  * @author sinso
  *
  */
-class Model {
+public class Model {
 	private String person;
 	private String startTime;
 	private String coordinates;
 	private String place;
 	private String clickedWord;
 
-	Model(String per) {
+	Model(String per, String time) {
 		person = per;
+		startTime = time;
 	}
 
 	public void addStartTime(String time) {
-		startTime = time;
+		startTime = new String("time");
 	}
 
 	public void addCoordinates(String coor) {

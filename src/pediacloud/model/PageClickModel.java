@@ -10,8 +10,8 @@ public class PageClickModel extends Model {
 	private int pageRank;
 	private int numberOfPages;
 
-	PageClickModel(String per) {
-		super(per);
+	public PageClickModel(String per, String time) {
+		super(per, time);
 	}
 
 	public void addClickedPage() {}

@@ -20,7 +20,7 @@ public class TestWordClickModel {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		model = new WordClickModel("Rica");
+		model = new WordClickModel("Rica","Fri Mar 28 14:23:05 GMT 2014");
 		System.out.println("Model created: " + model.toString());
 	}
 
@@ -74,7 +74,7 @@ public class TestWordClickModel {
 	@Test
 	public final void testAddColor () { 
 		model.addWordColor(-16711936);
-		//System.out.println("Word color added: " + model.toString());
+		System.out.println("Word color added: " + model.toString());
 	}
 	
 	
