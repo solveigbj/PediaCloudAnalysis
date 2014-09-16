@@ -33,7 +33,7 @@ public class Model {
 	}
 
 	public String toString() {
-		return person + ", " + startTime + ", " + coordinates + ", "
-				+ place + ", " + clickedWord + ", ";
+		return person + "; " + startTime + "; " + coordinates + "; "
+				+ place + "; " + clickedWord + "; ";
 	}
 }

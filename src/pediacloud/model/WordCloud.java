@@ -30,15 +30,44 @@ public class WordCloud {
 		}
 		return false;
 	}
+	
+	public int getSize(String word) {
+
+		for (Iterator<WordLine> i = wordCloud.iterator(); i.hasNext();){
+			WordLine item = i.next();
+			if (item.getWord().equals(word)) {
+				return item.wordSize();
+			}
+		}
+		return 0;
+	}
+
+	public int getColor(String word) {
+		for (Iterator<WordLine> i = wordCloud.iterator(); i.hasNext();){
+			WordLine item = i.next();
+			if (item.getWord().equals(word)) {
+				return item.getColor();
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 * Returns null if the word is not found (this should never happen in our case, 
+	 * or the position of the word in the list.
+	 * @param word The word that has been clicked
+	 * @return The words position in the list or 0 if not found.
+	 */
 	public int position (String word) {
 		int pos = 0;
 		for(Iterator<WordLine> i = wordCloud.iterator(); i. hasNext();) {
 			WordLine item = i.next();
 			pos++;
-			if (item.getWord().equals(word))
+			if (item.getWord().equals(word)) {
 				return pos;
+			}
 		}
-		return pos;
+		return 0;
 	}
 	
 	public boolean isEmpty() {

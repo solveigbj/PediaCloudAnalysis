@@ -37,7 +37,7 @@ public class WordClickModel extends Model {
 			else if (c.equals(Color.magenta)) name = colors[3];
 			else if (c.equals(Color.cyan)) name = colors[4];
 			else if (c.equals(Color.yellow)) name = colors[5];
-			else if (c.equals(Color.black)) name = colors[7];
+			else if (c.equals(Color.black)) name = colors[6];
 		}
 		return name;
 	}
@@ -54,8 +54,8 @@ public class WordClickModel extends Model {
 	}
 	public String toString() {
 
-		return super.toString() + wordSize + ", " + wordColor + ", " + wordRank
-				+ ", " + numberOfWords;
+		return super.toString() + wordSize + "; " + wordColor + "; " + wordRank
+				+ "; " + numberOfWords + "\n";
 	}
 
 }

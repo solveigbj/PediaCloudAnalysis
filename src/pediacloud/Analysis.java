@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 
 import pediacloud.model.WordClickModel;
 import pediacloud.model.WordCloud;
-import pediacloud.model.WordLine;
 
 /**
  * Does the main analysis of the input file and generates two files for the
@@ -18,15 +17,15 @@ import pediacloud.model.WordLine;
  *
  */
 public class Analysis {
-	String path = "D:\\DropBox\\PediaCloud\\Userdata\\";
-	String wordClickFileName = "WordClicks.cvs";
-	String pageClickFileName = "PageClicks.cvs";
+	String path = "data\\";
+	String wordClickFileName = "output\\WordClicks.cvs";
+	String pageClickFileName = "output\\PageClicks.cvs";
 	String userName;
 	String timeStamp;
 	String coor;
 	String place;
-	private FileWriter outWordStream;
-	private FileWriter outPageStream;
+	private FileWriter wordClickWriter;
+	private FileWriter pageClickWriter;
 
 	public void run(String fileName) throws IOException {
 		String inputFile = path + fileName;
@@ -36,8 +35,9 @@ public class Analysis {
 
 		try {
 			br = new BufferedReader(new FileReader(inputFile));
-			outWordStream = new FileWriter(wordClickFileName);
-			outPageStream = new FileWriter(pageClickFileName);
+			wordClickWriter = new FileWriter(wordClickFileName);
+			pageClickWriter = new FileWriter(pageClickFileName);
+
 			analyze(br);
 
 		} finally {
@@ -45,13 +45,16 @@ public class Analysis {
 				inputStream.close();
 				br.close();
 			}
-			if (outWordStream != null) {
-				outWordStream.close();
+			if (wordClickWriter != null) {
+				wordClickWriter.flush();
+				wordClickWriter.close();
 			}
-			if (outPageStream != null) {
-				outPageStream.close();
+			if (pageClickWriter != null) {
+				pageClickWriter.flush();
+				pageClickWriter.close();
 			}
 		}
+		System.out.println("The program has finished normally");
 	}
 
 	/**
@@ -65,22 +68,16 @@ public class Analysis {
 		WordClickModel wcm = null;
 		WordCloud wc = new WordCloud();
 		// read through the file line by line
-		line = br.readLine();
-		// Check the file
+		line = br.readLine(); // Read first line
 		while (line != null) {
 			st = new StringTokenizer(line, ":");
 			token = st.nextToken();
-			if (token.equals("STARTED")) {
+			if (token.equals("STARTED")) { // always the first line
 				// found line with start time
 				timeStamp = line.replace("STARTED: ", "");
-				/* 
-				 * If this line is encountered and we have a full WordCloud list, we do not need it, and can get rid of it.
-				 */
-				if (!wc.isEmpty()) wc.clear();
-				
+
 			} else if (token.equals("COOR")) {
 				coor = line.replace("COOR: ", "").trim();
-				//System.out.println("Coor: " + coor);
 			} else if (token.equals("PLACE")) {
 				place = line.replace("PLACE: ", "");
 			} else if (token.equals("WORDCLOUDLIST")) {
@@ -88,51 +85,43 @@ public class Analysis {
 				wcm = new WordClickModel(userName, timeStamp);
 				wcm.addCoordinates(coor);
 				wcm.addPlace(place);
-				System.out.println("WCM: " + wcm);
-				line = br.readLine();
-				wc = new WordCloud();
-				while (line.startsWith("\tWORD:")) {
-					wc.add(line.replace("\tWORD: ", ""));
-					// we should parse the remainder of the line
-					String temp = line.replace("\tWORD: ", "");
-					wc.add(temp);
-					StringTokenizer sto = new StringTokenizer(temp);
-					System.out.println("The remaining string is: " + temp);
-					//wcm.addClickedWord(sto.nextToken());
-					//wcm.addWordSize(new Integer(sto.nextToken()));
-					line = br.readLine();
-				}
-				System.out.println("WCM after finishing the words: " + wcm);
+				// Emtpy wordCloud list
+				wc.clear();
+			} else if (token.equals("\tWORD")) {
+				// Add remainder to the word cloud
+				wc.add(line.replace("\tWORD: ", ""));
+			} else if (line.startsWith("CLICKED WORD")) {
+				// Finish creating the wcm. Can now write it to file
+				String clickedWord = line.replace("CLICKED WORD: ", "");
+				wcm.addClickedWord(clickedWord);
+
+				// finish up generating the wcm - needs the WordCloud
+				wcm.addNumberOfWords(wc.size());  // Add size of wordCloud
+				wcm.addWordSize(wc.getSize(clickedWord));
+				wcm.addWordColor(wc.getColor(clickedWord));
+				wcm.addWordRank(wc.position(clickedWord)); // Add clicked word's rank
 				
-				if (line.startsWith("CLICKED WORD")) {
-					System.out.println("Have found a clicked word.");
-					// Finish creating the wcm
-					String clickedWord = line.replace("CLICKED WORD: ", "");
-					System.out.println("The clicked word is: " + clickedWord);
-					wcm.addClickedWord(clickedWord);
-					System.out.println(wcm);
-					
-					// finish up generating the wcm - needs the WordCloud
-					System.out.println("The size of the Word Cloud is: " + wc.size());
-					wcm.addNumberOfWords(wc.size());
-					int i = wc.position(clickedWord);
-					if (i == 0) {
-						System.out.println("Not found");
-					}
-					else if (i > 0) {
-						wcm.addWordRank(i);
-					}
-					System.out.println("WCM after adding rank "+wcm);
-					line = br.readLine();
-					while (line.startsWith("\tPAGE:")){
-					
-					}
-				}
-				
+				// Write to file
+				wordClickWriter.append(wcm.toString());
+
+			} else if (line.startsWith("WEBPAGELIST")) {
+				System.out.println("WEBPAGELIST found");
+
+			} else if (line.startsWith("SELECT")) {
+				System.out.println("SELECT found");
+
+			} else if (line.startsWith("REDRAW")) {
+				System.out.println("REDRAW found");
+			} else if (line.startsWith("FOCUS")) {
+				System.out.println("FOCUS found");
+
+			} else if (line.startsWith("ENDED")) {
+				System.out.println("ENDED found");
 			}
-			line = br.readLine();
+			if (br != null) {
+				line = br.readLine();
+			}
 		}
-		System.out.println("Reached eof");
 	}
 
 	public static void main(String args[]) {

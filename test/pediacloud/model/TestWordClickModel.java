@@ -73,7 +73,7 @@ public class TestWordClickModel {
 	 */
 	@Test
 	public final void testAddColor () { 
-		model.addWordColor(-16711936);
+		model.addWordColor(-16776961);
 		System.out.println("Word color added: " + model.toString());
 	}
 	
