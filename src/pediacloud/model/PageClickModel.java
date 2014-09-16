@@ -6,7 +6,7 @@ package pediacloud.model;
  */
 public class PageClickModel extends Model {
 
-	private int clickedPage;
+	private String clickedPage;
 	private int pageRank;
 	private int numberOfPages;
 
@@ -14,9 +14,11 @@ public class PageClickModel extends Model {
 		super(per, time);
 	}
 
-	public void addClickedPage() {}
-	public void addPageRank() {}
-	public void addNumberOfPages() {}
+	public void addClickedPage(String page) {
+		clickedPage = page;
+	}
+	public void addPageRank(int i) { pageRank = i;}
+	public void addNumberOfPages(int i) { numberOfPages = i;}
 	
 	public String toString() {
 		return super.toString() + clickedPage + "; " + pageRank + "; "
