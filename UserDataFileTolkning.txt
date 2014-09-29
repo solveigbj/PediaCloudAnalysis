@@ -1,0 +1,15 @@
+Det er en fil for hver bruker.
+Hver fil samler informasjon om:
+1) STARTED - når programmet startes
+2) COOR - koordinatene på stedet hvor programmet startes
+3) PLACE - brukerens plassering
+4) WORDCLOUDLIST - start av listen av ord
+5 WORD - en samling ord - ett på hver linje 
+	For hvert ord har vi info om:
+		ordet, størrelsen på ordet, koding som kjem frå javas Color-klasse, x-koordinat på skjermen, y-koordinat på skjermen
+		
+		Når et klikket ord i ordskyen skal legges inn i WordClicks, skal det rankes etter ordstørrelsen!
+
+Data som skrives ut på filen WordClicks.cvs er: 
+Person, StartTime, Coordinates, Place, ClickedWord, WordSize, WordColour, WordRank, NumberOfWords
+		
