@@ -41,6 +41,7 @@ public class Analysis {
 			br = new BufferedReader(new FileReader(inputFile));
 			// Open output files in append mode
 			wordClickWriter = new FileWriter(wordClickFileName,true);
+
 			pageClickWriter = new FileWriter(pageClickFileName, true);
 
 			analyze(br);
@@ -59,7 +60,7 @@ public class Analysis {
 				pageClickWriter.close();
 			}
 		}
-		System.out.println("The program has finished normally");
+		//System.out.println("The program has finished normally");
 	}
 
 	/**
@@ -80,33 +81,30 @@ public class Analysis {
 			st = new StringTokenizer(line, ":");
 			token = st.nextToken();
 			if (token.equals("STARTED")) { // always the first line
-				// found line with start time
-				timeStamp = line.replace("STARTED: ", "");
+				timeStamp = line.replace("STARTED: ", ""); // keep the timestamp
 
 			} else if (token.equals("COOR")) {
 				coor = line.replace("COOR: ", "").trim();
 			} else if (token.equals("PLACE")) {
 				place = line.replace("PLACE: ", "");
 			} else if (token.equals("WORDCLOUDLIST")) {
-				//System.out.println("Found a WordCloudList!");
 				wcm = new WordClickModel(userName, timeStamp);
 				wcm.addCoordinates(coor);
 				wcm.addPlace(place);
-				// Emtpy wordCloud list
-				wc.clear();
+				wc.clear(); //When a new word cloud list starts, we get rid of previous content
 			} else if (token.equals("\tWORD")) {
 				// Add remainder to the word cloud
-				wc.add(line.replace("\tWORD: ", ""));
+				wc.add(line.replace("\tWORD: ", ""));  // add word info to WordCloudList
 			} else if (line.startsWith("CLICKED WORD")) {
-				// Finish creating the wcm. Can now write it to file
 				clickedWord = line.replace("CLICKED WORD: ", "");
 				wcm.addClickedWord(clickedWord);
 
 				// finish up generating the wcm - needs the WordCloud
 				wcm.addNumberOfWords(wc.size());  // Add size of wordCloud
-				wcm.addWordSize(wc.getSize(clickedWord));
+				wcm.addWordSize(wc.getWordSize(clickedWord));
 				wcm.addWordColor(wc.getColor(clickedWord));
-				wcm.addWordRank(wc.position(clickedWord)); // Add clicked word's rank
+				wcm.addWordRank(wc.getRank(clickedWord)); // Add clicked word's rank
+				wordClickWriter.append(wcm.toString());
 				
 			} else if (line.startsWith("WEBPAGELIST")) {
 				// Skal lage en PageClick entry
@@ -124,23 +122,23 @@ public class Analysis {
 			}
 			else if (line.startsWith("SELECT")) {
 				String page = line.replace("SELECT:", "");
-				System.out.println("Page is: " + page);
+				//System.out.println("Page is: " + page);
 				pcm.addClickedPage(page);
 				pcm.addPageRank(wpl.pageRank(page));
 				pcm.addNumberOfPages(wpl.size());
 				System.out.println("PageClickModel: " + pcm);
 				
 				// Write to file
-				wordClickWriter.append(pcm.toString());
+				pageClickWriter.append(pcm.toString());
 				
 			} else if (line.startsWith("REDRAW")) {
 				// TODO: Burde vi endret place til denne verdien?
-				System.out.println("REDRAW found");
+				//System.out.println("REDRAW found");
 			} else if (line.startsWith("FOCUS")) {
-				System.out.println("FOCUS found");
+				//System.out.println("FOCUS found");
 
 			} else if (line.startsWith("ENDED")) {
-				System.out.println("ENDED found");
+				//System.out.println("ENDED found");
 			}
 			if (br != null) {
 				line = br.readLine();
@@ -159,7 +157,6 @@ public class Analysis {
 					an.run(file.getName());
 				}
 			}
-
 			//an.run("Richa.txt");
 		} catch (IOException e) {
 		}
