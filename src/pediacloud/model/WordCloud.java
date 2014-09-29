@@ -1,15 +1,18 @@
 package pediacloud.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
 public class WordCloud {
 	
 	ArrayList<WordLine> wordCloud;
+	WordLine[] array;
 	public WordCloud() {
 		wordCloud = new ArrayList<WordLine>();
 	}
+
 	public void add(String content)
 	{
 		StringTokenizer st = new StringTokenizer(content);
@@ -21,30 +24,20 @@ public class WordCloud {
 		wordCloud.add(new WordLine(selected));
 	}
 	
-	public boolean findWord(String word) {
-		for ( Iterator<WordLine> i = wordCloud.iterator(); i.hasNext();) {
-			WordLine item = i.next();
-			if (item.getWord().equals(word)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public int getSize(String word) {
+	public int getWordSize(String word) {
 
 		for (Iterator<WordLine> i = wordCloud.iterator(); i.hasNext();){
 			WordLine item = i.next();
 			if (item.getWord().equals(word)) {
-				return item.wordSize();
+				return item.getWordSize();
 			}
 		}
 		return 0;
 	}
 
 	public int getColor(String word) {
-		for (Iterator<WordLine> i = wordCloud.iterator(); i.hasNext();){
-			WordLine item = i.next();
+		for (Iterator<WordLine> it = wordCloud.iterator(); it.hasNext();){
+			WordLine item = it.next();
 			if (item.getWord().equals(word)) {
 				return item.getColor();
 			}
@@ -53,21 +46,22 @@ public class WordCloud {
 	}
 	
 	/**
-	 * Returns null if the word is not found (this should never happen in our case, 
-	 * or the position of the word in the list.
+	 * Returns 1 if no other words are found with bigger size, 
+	 * or the words rank in the collection.
 	 * @param word The word that has been clicked
-	 * @return The words position in the list or 0 if not found.
+	 * @return The word's rank in the collection.
 	 */
-	public int position (String word) {
-		int pos = 0;
-		for(Iterator<WordLine> i = wordCloud.iterator(); i. hasNext();) {
+	public int getRank (String word) {
+		int wordSize = getWordSize(word);
+		System.out.println("WordSize = " + wordSize);
+		int count = 0;
+		for(Iterator<WordLine> i = wordCloud.iterator(); i.hasNext();) {
 			WordLine item = i.next();
-			pos++;
-			if (item.getWord().equals(word)) {
-				return pos;
+			if (item.getWordSize()> wordSize) {
+				count++;
 			}
 		}
-		return 0;
+		return count+1;
 	}
 	
 	public boolean isEmpty() {

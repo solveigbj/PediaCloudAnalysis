@@ -28,7 +28,7 @@ public class WordClickModel extends Model {
 	 */
 	private String getColorName(Color c) {
 		String[] colors = {"RED","GREEN","BLUE","MAGENTA","CYAN","YELLOW","BLACK"};
-		//if (c==null) return defaultName;
+
 		String name = "Black";
 		if (name!=null && name.length()>0) {
 			if (c.equals(Color.red)) name = colors[0];
@@ -42,9 +42,9 @@ public class WordClickModel extends Model {
 		return name;
 	}
 	
-	public void addWordColor(int color) {
-		Color Color = new Color(color);
-		wordColor = getColorName(Color);
+	public void addWordColor(int col) {
+		Color color = new Color(col);
+		wordColor = getColorName(color);
 	}
 	public void addWordRank(int rank) {
 		wordRank = rank;

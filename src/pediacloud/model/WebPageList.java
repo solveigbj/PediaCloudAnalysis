@@ -20,11 +20,11 @@ public class WebPageList {
 		for(Iterator<String> i = pages.iterator(); i. hasNext();) {
 			String item = i.next();
 			pos++;
-			System.out.println("Inside of pageRank. Pos = " + pos);
+			//System.out.println("Inside of pageRank. Pos = " + pos);
 			if (item.equals(str)) {
 				return pos;
 			} else if (str.startsWith(item)) {
-				System.out.println("Inside pageRank. Almost identical. Item = " + item + " and string = " + str);
+				//System.out.println("Inside pageRank. Almost identical. Item = " + item + " and string = " + str);
 				return pos;
 			}
 		}
