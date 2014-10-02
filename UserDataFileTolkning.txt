@@ -10,6 +10,7 @@ Hver fil samler informasjon om:
 		
 		Når et klikket ord i ordskyen skal legges inn i WordClicks, skal det rankes etter ordstørrelsen!
 
-Data som skrives ut på filen WordClicks.cvs er: 
+Data som skrives ut på filen WordClicks.csv er: 
 Person, StartTime, Coordinates, Place, ClickedWord, WordSize, WordColour, WordRank, NumberOfWords
-		
+
+Data som skal skrives ut på filen PageClicks.csv

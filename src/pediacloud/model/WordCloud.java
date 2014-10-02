@@ -53,7 +53,7 @@ public class WordCloud {
 	 */
 	public int getRank (String word) {
 		int wordSize = getWordSize(word);
-		System.out.println("WordSize = " + wordSize);
+		//System.out.println("WordSize = " + wordSize);
 		int count = 0;
 		for(Iterator<WordLine> i = wordCloud.iterator(); i.hasNext();) {
 			WordLine item = i.next();

@@ -21,8 +21,8 @@ import pediacloud.model.WordCloud;
  */
 public class Analysis {
 	String path = "data\\";
-	String wordClickFileName = "output\\WordClicks.cvs";
-	String pageClickFileName = "output\\PageClicks.cvs";
+	String wordClickFileName = "output\\WordClicks.csv";
+	String pageClickFileName = "output\\PageClicks.csv";
 	String userName;
 	String timeStamp;
 	String coor;
@@ -113,10 +113,7 @@ public class Analysis {
 				pcm.addCoordinates(coor);
 				pcm.addPlace(place);
 				pcm.addClickedWord(clickedWord);
-				pageClickWriter.append(pcm.toString());
 				
-				System.out.println("PageClickModel: " + pcm);
-
 			} else if (line.startsWith("\tPAGE")) {
 				wpl.add(line.replace("\tPAGE:", ""));
 			}
@@ -126,7 +123,7 @@ public class Analysis {
 				pcm.addClickedPage(page);
 				pcm.addPageRank(wpl.pageRank(page));
 				pcm.addNumberOfPages(wpl.size());
-				System.out.println("PageClickModel: " + pcm);
+				//System.out.println("PageClickModel: " + pcm);
 				
 				// Write to file
 				pageClickWriter.append(pcm.toString());
