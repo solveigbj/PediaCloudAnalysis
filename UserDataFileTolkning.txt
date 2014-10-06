@@ -14,3 +14,4 @@ Data som skrives ut på filen WordClicks.csv er:
 Person, StartTime, Coordinates, Place, ClickedWord, WordSize, WordColour, WordRank, NumberOfWords
 
 Data som skal skrives ut på filen PageClicks.csv
+Person, StartTime, Coordinates, Place, ClickedWord, clickedPage, pageRank, numberOfPages
