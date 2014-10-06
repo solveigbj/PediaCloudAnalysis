@@ -60,11 +60,10 @@ public class Analysis {
 				pageClickWriter.close();
 			}
 		}
-		//System.out.println("The program has finished normally");
 	}
 
 	/**
-	 * @param br
+	 * @param br - bufferedReader
 	 * @throws IOException
 	 */
 	private void analyze(BufferedReader br) throws IOException {
@@ -119,23 +118,20 @@ public class Analysis {
 			}
 			else if (line.startsWith("SELECT")) {
 				String page = line.replace("SELECT:", "");
-				//System.out.println("Page is: " + page);
 				pcm.addClickedPage(page);
 				pcm.addPageRank(wpl.pageRank(page));
 				pcm.addNumberOfPages(wpl.size());
-				//System.out.println("PageClickModel: " + pcm);
 				
 				// Write to file
 				pageClickWriter.append(pcm.toString());
 				
-			} else if (line.startsWith("REDRAW")) {
+			} 
+			// The remaining information is not used (Yet)
+			else if (line.startsWith("REDRAW")) {
 				// TODO: Burde vi endret place til denne verdien?
-				//System.out.println("REDRAW found");
 			} else if (line.startsWith("FOCUS")) {
-				//System.out.println("FOCUS found");
 
 			} else if (line.startsWith("ENDED")) {
-				//System.out.println("ENDED found");
 			}
 			if (br != null) {
 				line = br.readLine();
@@ -154,7 +150,6 @@ public class Analysis {
 					an.run(file.getName());
 				}
 			}
-			//an.run("Richa.txt");
 		} catch (IOException e) {
 		}
 	}
