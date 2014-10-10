@@ -21,7 +21,7 @@ public class PageClickModel extends Model {
 	public void addNumberOfPages(int i) { numberOfPages = i;}
 	
 	public String toString() {
-		return super.toString() + clickedPage + "; " + pageRank + "; "
+		return super.toString() + clickedPage + SEPARATOR + pageRank + SEPARATOR
 				+ numberOfPages + "\n";
 	}
 	

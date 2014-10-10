@@ -10,6 +10,7 @@ public class Model {
 	private String coordinates;
 	private String place;
 	private String clickedWord;
+	protected static String SEPARATOR = "; "; 
 
 	Model(String per, String time) {
 		person = per;
@@ -33,7 +34,7 @@ public class Model {
 	}
 
 	public String toString() {
-		return person + "; " + startTime + "; " + coordinates + "; "
-				+ place + "; " + clickedWord + "; ";
+		return person + "; " + startTime + SEPARATOR + coordinates + SEPARATOR
+				+ place + SEPARATOR + clickedWord + SEPARATOR;
 	}
 }

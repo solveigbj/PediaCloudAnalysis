@@ -54,8 +54,8 @@ public class WordClickModel extends Model {
 	}
 	public String toString() {
 
-		return super.toString() + wordSize + "; " + wordColor + "; " + wordRank
-				+ "; " + numberOfWords + "\n";
+		return super.toString() + wordSize + SEPARATOR + wordColor + SEPARATOR + wordRank
+				+ SEPARATOR + numberOfWords + "\n";
 	}
 
 }
