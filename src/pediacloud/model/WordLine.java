@@ -5,12 +5,16 @@ public class WordLine implements Comparable<WordLine>{
 	String word;
 	int wordSize;
 	int color;
+	int x;
+	int y;
 
 	
 	public WordLine (String[] content) {
 		word = content[0];
 		wordSize = new Integer(content[1]).intValue();
 		color = new Integer(content[2]).intValue();
+		x = new Integer(content[3]).intValue();
+		y = new Integer(content[4]).intValue();
 	}
 	
 	public String getWord() { return word; }
@@ -21,6 +25,9 @@ public class WordLine implements Comparable<WordLine>{
 	
 	public int getColor() {
 		return color;
+	}
+	public int getY() {
+		return y;
 	}
 	
 	/**

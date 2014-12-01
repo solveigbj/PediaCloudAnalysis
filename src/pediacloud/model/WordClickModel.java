@@ -13,6 +13,8 @@ public class WordClickModel extends Model {
 	private String wordColor;
 	private int wordRank;
 	private int numberOfWords;
+	private int y;
+	private int max_y;
 
 	public WordClickModel(String per, String time) {
 		super(per, time);
@@ -52,10 +54,17 @@ public class WordClickModel extends Model {
 	public void addNumberOfWords(int words) {
 		numberOfWords = words;
 	}
+	public void addY(int y) {
+		this.y = y;
+	}
+	public void addMaxY (int maxY) {
+		max_y = maxY;
+	}
+
 	public String toString() {
 
 		return super.toString() + wordSize + SEPARATOR + wordColor + SEPARATOR + wordRank
-				+ SEPARATOR + numberOfWords + "\n";
+				+ SEPARATOR + numberOfWords + SEPARATOR + y + SEPARATOR + max_y +  "\n";
 	}
 
 }

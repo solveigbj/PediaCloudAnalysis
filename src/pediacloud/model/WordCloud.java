@@ -13,11 +13,12 @@ public class WordCloud {
 		wordCloud = new ArrayList<WordLine>();
 	}
 
+	/* We add all the content on the line to a list */
 	public void add(String content)
 	{
 		StringTokenizer st = new StringTokenizer(content);
-		String[] selected = new String[3];
-		for (int i = 0; i<3; i++) {
+		String[] selected = new String[5];
+		for (int i = 0; i<5; i++) {
 			selected[i] = st.nextToken();
 		}
 
@@ -62,6 +63,34 @@ public class WordCloud {
 			}
 		}
 		return count+1;
+	}
+	
+	public int getSelectedY (String word) {
+		int y;
+		for (Iterator<WordLine> i = wordCloud.iterator(); i.hasNext();) {
+			WordLine item = i.next();
+			if (item.getWord().equals(word)) {
+				return item.getY();
+			}
+
+		}
+		return 0;
+	}
+	
+	public int getMaxY () {
+		int maxY = 0;
+		int y;
+		for (Iterator<WordLine> i = wordCloud.iterator(); i.hasNext();) {
+			WordLine item = i.next();
+			
+			y = item.getY();
+			if (y > maxY) {	
+				maxY = y; 
+			}
+			System.out.println ("Max Y = " + maxY);
+		}
+	
+		return maxY;
 	}
 	
 	public boolean isEmpty() {

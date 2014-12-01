@@ -28,6 +28,8 @@ public class Analysis {
 	String coor;
 	String place;
 	String clickedWord;
+	String y;
+	int max_y;
 	private FileWriter wordClickWriter;
 	private FileWriter pageClickWriter;
 
@@ -87,6 +89,7 @@ public class Analysis {
 			} else if (token.equals("PLACE")) {
 				place = line.replace("PLACE: ", "");
 			} else if (token.equals("WORDCLOUDLIST")) {
+				max_y = 0;
 				wcm = new WordClickModel(userName, timeStamp);
 				wcm.addCoordinates(coor);
 				wcm.addPlace(place);
@@ -103,6 +106,8 @@ public class Analysis {
 				wcm.addWordSize(wc.getWordSize(clickedWord));
 				wcm.addWordColor(wc.getColor(clickedWord));
 				wcm.addWordRank(wc.getRank(clickedWord)); // Add clicked word's rank
+				wcm.addY(wc.getSelectedY(clickedWord));
+				wcm.addMaxY(wc.getMaxY());
 				wordClickWriter.append(wcm.toString());
 				
 			} else if (line.startsWith("WEBPAGELIST")) {
@@ -128,6 +133,7 @@ public class Analysis {
 			} 
 			// The remaining information is not used (Yet)
 			else if (line.startsWith("REDRAW")) {
+				max_y = 0;
 				// TODO: Burde vi endret place til denne verdien?
 			} else if (line.startsWith("FOCUS")) {
 
